@@ -70,17 +70,26 @@
 		}
 	});
 
-	H.wrap(H.Axis.prototype, 'log2lin', function (p, num) {
-		var ret;
-		if (this instanceof H.Axis && this.options.logBase) {
-			ret = Math.log(num) / Math.log(this.options.logBase);
-		} else {
-			ret = p.apply(this, [].slice.call(arguments, 1));
-		}
+	//H.wrap(H.Axis.prototype, 'log2lin', function (p, num) {
+	//	var ret;
+	//	if (this instanceof H.Axis && this.options.logBase) {
+	//		ret = Math.log(num) / Math.log(this.options.logBase);
+	//	} else {
+	//		ret = p.apply(this, [].slice.call(arguments, 1));
+	//	}
+	//	return ret;
+	//});
 
-		return ret;
-	});
-
+	H.Axis.prototype.log2lin = function (num) {
+        	var ret;
+        	if (this instanceof H.Axis && this.options.logBase) {
+        	    ret = Math.log(num) / Math.log(this.options.logBase);
+        	} else {
+        	    ret = Math.log(num) / Math.LN10;
+        	}
+        	return ret;
+    	};
+	
 	H.wrap(H.Axis.prototype, 'lin2log', function (p, num) {
 		var ret;
 		if (this instanceof H.Axis && this.options.logBase) {
