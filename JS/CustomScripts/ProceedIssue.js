@@ -144,6 +144,37 @@
     RTAChartobj.xAxis.min = RTAChartobj.xAxis.type == "logarithmic" ? rtaxmin : 0;
     RTAChartobj.yAxis[0].min = RTAChartobj.yAxis[0].type == "logarithmic" ? rtaymin : 0;
 
+     RTAChartobj.annotations = [
+        {
+            anchorX: "left",
+            anchorY: "top",
+            allowDragY: true,
+            allowDragX: true,
+            xValue: .01,
+            yValue: .02,
+            xValueEnd: .4,
+            yValueEnd: .4,
+            plotType: '',
+            shape: {
+                type: 'path',
+                params: {
+                    cursor: "url(../Images/selection_cursor.png), pointer",
+                    //d: ["M", 0, 0, 'L', dataArray[10].x, -10],
+                    d: ["M", 0, 0, 'L', 0, 0],
+                    // d: ["M", 0, 0, 'L', 200, chart.series[0].dataMin],
+                    //   d: ["M", 0, 0, 'L', 200, -200],
+                    stroke: 'Black',
+                    'stroke-width': 4,
+                    strokeWidth: 10
+                }
+            },
+            events: {
+                dblclick: function (e) {
+                    this.destroy(); //destroy annotation
+                }
+            }
+        }
+    ];
 
     $('#container').highcharts(RTAChartobj);
     GlobalchartObj = RTAChartobj;
