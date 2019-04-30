@@ -1,5 +1,8 @@
 ﻿$(function () {
     var RTAChartobj = {
+        mapNavigation: {
+            enableMouseWheelZoom: true
+        },
         chart: getChartObj({ 'selectionCallBack': chartPointsSelection }),
         title: getTitleObj(),
         xAxis: getAxis({
@@ -87,11 +90,11 @@
         }
     }
     dataArray = [];
-    for (var i = 0; i < 100; i++) {
+    for (var i = 1; i < 10000; i++) {
         dataArray.push(
             {
-                x: Math.random(),
-                y: Math.random(),
+                x: i,
+                y: Math.random()*1000,
                 marker: {
                     fillColor: undefined,
                     states: {
