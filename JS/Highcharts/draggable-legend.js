@@ -25,7 +25,9 @@
             options = legend.options,
             padding = options.padding || 5,
             contentBox = legend.contentGroup.getBBox(true);
-
+            
+            legend.box.isNew = true; // this code resolved <Draggable Legend Issue>
+        
         // Resize legend when value-in-legend plugin changes value:
         if (contentBox.width + 2 * padding > legend.options.width) {
             legend.options.width = Math.ceil(contentBox.width) + 2 * padding;
