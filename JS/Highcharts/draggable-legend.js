@@ -25,9 +25,8 @@
             options = legend.options,
             padding = options.padding || 5,
             contentBox = legend.contentGroup.getBBox(true);
-            
-            legend.box.isNew = true; // this code resolved <Draggable Legend Issue>
-        
+        //ISSUE RESOLVED: draggable legend is now resizing immediately as the arrow is dragged
+            legend.box.isNew = true;// this code resolved Draggable Legend Issue
         // Resize legend when value-in-legend plugin changes value:
         if (contentBox.width + 2 * padding > legend.options.width) {
             legend.options.width = Math.ceil(contentBox.width) + 2 * padding;
@@ -196,11 +195,11 @@
                 align: 'right',
                 verticalAlign: 'bottom'
             }, true, {
-                width: legend.legendWidth - resizerBBox.width - resizerPadding,
-                height: legend.legendHeight - resizerBBox.height - resizerPadding,
-                x: 0,
-                y: 0
-            });
+                    width: legend.legendWidth - resizerBBox.width - resizerPadding,
+                    height: legend.legendHeight - resizerBBox.height - resizerPadding,
+                    x: 0,
+                    y: 0
+                });
         } else {
             legend.resizer.hide();
         }
@@ -313,7 +312,8 @@
             if (isDragging && changedDiff && !chart.isResizingLegend) {
                 chart.afterLegendUpdate = true;
                 // Update legend, if necessary:
-                if (options.y + legend.legendHeight > chart.chartHeight * 0.9) {
+                //ISSUE: Plot area is not resizing when legend is dragged back inside plot area.
+                /* if (options.y + legend.legendHeight > chart.chartHeight * 0.9) {
                     chart.update({
                         legend: {
                             x: 0,
@@ -330,6 +330,20 @@
                         legend: {
                             floating: true
                         }
+                    });
+                } */
+                //ISSUE RESOLVED: Below code resolved the issue of plot resize in Highcharts 7.1.1
+                if (options.y + legend.legendHeight > chart.chartHeight * 0.9) {
+                    legend.update({
+                        x: 0,
+                        y: 0,
+                        floating: false,
+                        verticalAlign: 'bottom',
+                        layout: 'horizontal',
+                    });
+                } else {
+                    legend.update({
+                        floating: true
                     });
                 }
             }
